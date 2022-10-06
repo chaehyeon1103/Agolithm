@@ -1,27 +1,34 @@
 package baekjoon.study;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class sortingTest3 {
 
-    public int solution(int[] citations) {
-        int N=citations.length;
-        Integer []temp=new Integer[N];
-        for (int i = 0; i < N; i++) {
-            temp[i]=citations[i];
-        }
-        int answer=0;
-        Arrays.sort(temp, Collections.reverseOrder());
+    public static int solution(int[] citations) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int count : citations) list.add(count);
 
-        while(answer<N){
-            if(temp[answer]<=answer)break;	//temp[answer]값이 answer보다 작거나 같아지면 끝이난다.
-            answer++;
+        list.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2 - o1;
+            }
+        });
+
+        int idx = 0;
+        while (idx < list.size()) {
+            if (list.get(idx) <= idx) break;
+            idx++;
         }
-        return answer;
+
+        return idx;
     }
 
     public static void main(String[] args) {
-
+        int[] citations = {3, 0, 6, 1, 5};
+        System.out.println(solution(citations));
     }
 }
